@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TO ORDER · FINAL BUY BOARD · Clifton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0b0d11; --bg2:#11141a; --bg3:#171b22; --hover:#1c222c;
+  --line:#242a34; --line2:#2e3542;
+  --text:#e8edf3; --muted:#8b949e; --faint:#5e6773;
+  --urgent:#fb7185; --urgent-bg:rgba(244,63,94,.14);
+  --high:#fbbf24; --high-bg:rgba(251,191,36,.12);
+  --medium:#38bdf8; --medium-bg:rgba(56,189,248,.12);
+  --low:#94a3b8; --low-bg:rgba(148,163,184,.1);
+  --local:#2dd4bf; --local-bg:rgba(45,212,191,.12);
+  --intl:#f59e0b; --intl-bg:rgba(245,158,11,.12);
+  --parked:#34d399; --parked-bg:rgba(52,211,153,.14);
+  --draft:#a78bfa; --draft-bg:rgba(167,139,250,.14);
+  --held:#fbbf24; --held-bg:rgba(251,191,36,.12);
+  --opt:#38bdf8; --opt-bg:rgba(56,189,248,.12);
+  --money:#fb7185; --money-bg:rgba(244,63,94,.14);
+  --advised:#34d399; --runner:#38bdf8; --skip:#64748b; --blocked:#fb923c;
+  --radius:12px; --font:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --panel:440px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:13.5px/1.45 var(--font)}
+body{overflow:hidden}
+a{color:#7dd3fc;text-decoration:none} a:hover{text-decoration:underline}
+button,input,select{font:inherit;color:inherit}
+.app{display:flex;height:100%}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{flex:0 0 auto;padding:14px 18px 12px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#12151c 0%,#0d1015 100%)}
+.brand{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+h1{margin:0;font-size:18px;font-weight:800;letter-spacing:.06em}
+h1 span{color:var(--muted);font-weight:500;letter-spacing:0;font-size:12.5px;margin-left:10px}
+.meta{color:var(--muted);font-size:12px;margin-top:4px}
+.strip{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.strip .pill{background:var(--bg3);border:1px solid var(--line2);border-radius:10px;padding:10px 14px;min-width:160px}
+.strip .pill .lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.strip .pill .val{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.strip .pill.park .val{color:var(--parked)}
+.strip .pill.warn .val{color:var(--urgent);font-size:13px;font-weight:700;line-height:1.35;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 8px}
+.chip{border:1px solid var(--line2);background:var(--bg3);color:var(--muted);border-radius:999px;
+  padding:4px 10px;cursor:pointer;font-size:11.5px;font-weight:600}
+.chip b{color:var(--text);margin-left:5px;font-variant-numeric:tabular-nums}
+.chip.on{color:var(--text);border-color:#3d4656;background:#222833}
+.chip.urgent.on,.chip[data-u="urgent"] b{color:var(--urgent)}
+.chip.high.on,.chip[data-u="high"] b{color:var(--high)}
+.chip.medium.on,.chip[data-u="medium"] b{color:var(--medium)}
+.chip.low.on,.chip[data-u="low"] b{color:var(--low)}
+.chip.parked.on b,.chip[data-s="parked"] b{color:var(--parked)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toolbar input[type=search]{flex:1 1 200px;min-width:140px;background:var(--bg);border:1px solid var(--line2);
+  border-radius:8px;padding:7px 10px;outline:none}
+.toolbar input:focus{border-color:#4b5568}
+.toolbar select{background:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:6px 8px}
+.toolbar label.check{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;cursor:pointer;user-select:none}
+.bands{flex:1;overflow:auto;padding:8px 12px 80px}
+.band{margin-bottom:16px}
+.band-h{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;padding:8px 8px 6px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);
+  font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.band-h .n{color:var(--muted);letter-spacing:0;font-weight:600}
+.band.urgent .band-h{color:var(--urgent)}
+.band.high .band-h{color:var(--high)}
+.band.medium .band-h{color:var(--medium)}
+.band.low .band-h{color:var(--low)}
+.card{position:relative;margin:0 0 8px;padding:12px 14px 12px 16px;background:var(--bg2);
+  border:1px solid var(--line);border-radius:var(--radius);cursor:pointer}
+.card:hover{background:var(--hover);border-color:var(--line2)}
+.card.sel{border-color:#4b5870;background:#1a2029;box-shadow:inset 3px 0 0 var(--rail)}
+.card .rail{position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--rail)}
+.card.urgent{--rail:var(--urgent)} .card.high{--rail:var(--high)}
+.card.medium{--rail:var(--medium)} .card.low{--rail:var(--low)}
+.card-top{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;justify-content:space-between}
+.card-name{font-weight:700;font-size:14.5px;line-height:1.3;max-width:620px}
+.badges{display:flex;flex-wrap:wrap;gap:5px}
+.badge{font-size:10px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:999px;text-transform:uppercase}
+.b-urgent{background:var(--urgent-bg);color:var(--urgent)}
+.b-high{background:var(--high-bg);color:var(--high)}
+.b-medium{background:var(--medium-bg);color:var(--medium)}
+.b-low{background:var(--low-bg);color:var(--low)}
+.b-parked{background:var(--parked-bg);color:var(--parked)}
+.b-draft-WA{background:var(--draft-bg);color:var(--draft)}
+.b-held{background:var(--held-bg);color:var(--held)}
+.b-optional{background:var(--opt-bg);color:var(--opt)}
+.b-money-hold{background:var(--money-bg);color:var(--money)}
+.b-local{background:var(--local-bg);color:var(--local)}
+.b-international{background:var(--intl-bg);color:var(--intl)}
+.b-cat{background:#1c2430;color:var(--muted);border:1px solid var(--line)}
+.card-mid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:baseline;margin-top:8px}
+.price{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+.price-note{color:var(--muted);font-size:12px}
+.kv{display:grid;grid-template-columns:88px 1fr;gap:3px 10px;margin-top:8px;font-size:12.5px;color:var(--text)}
+.kv span:nth-child(odd){color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:8px;border:1px solid var(--line2);
+  background:var(--bg3);color:var(--text);font-weight:650;font-size:12px;cursor:pointer;text-decoration:none}
+.btn:hover{background:#222833;text-decoration:none}
+.btn.checkout{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.35);color:var(--parked)}
+.btn.cart{background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.3);color:var(--medium)}
+.btn.compare{background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.3);color:var(--draft)}
+.btn:disabled,.btn.disabled{opacity:.4;pointer-events:none}
+.sacred{position:sticky;bottom:0;z-index:3;border-top:1px solid var(--line);background:#0e1218ee;
+  backdrop-filter:blur(10px);padding:10px 16px 14px}
+.sacred h3{margin:0 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.sacred-row{display:flex;flex-wrap:wrap;gap:6px}
+.sacred code{background:var(--bg3);border:1px solid var(--line2);border-radius:6px;padding:3px 8px;
+  font-size:11.5px;color:var(--parked);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.panel{display:none;width:var(--panel);flex:0 0 var(--panel);border-left:1px solid var(--line);
+  background:var(--bg2);flex-direction:column;height:100%}
+.panel.open{display:flex}
+.panel-h{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.panel-h h2{margin:0;font-size:15px;line-height:1.3}
+.panel-h button{background:transparent;border:1px solid var(--line2);border-radius:8px;padding:4px 8px;cursor:pointer;color:var(--muted)}
+.panel-b{overflow:auto;padding:12px 16px 32px;flex:1}
+.sec{margin:0 0 16px}
+.sec h4{margin:0 0 8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.cmp{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 8px;background:var(--bg3)}
+.cmp .t{font-weight:700;margin-bottom:4px}
+.cmp .m{color:var(--muted);font-size:12px}
+.verdict{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+  padding:2px 7px;border-radius:999px;margin-left:6px}
+.v-advised{background:rgba(52,211,153,.15);color:var(--advised)}
+.v-runner{background:rgba(56,189,248,.15);color:var(--runner)}
+.v-skip{background:rgba(100,116,139,.2);color:var(--skip)}
+.v-blocked{background:rgba(251,146,60,.15);color:var(--blocked)}
+.empty{padding:40px 20px;text-align:center;color:var(--muted)}
+@media (max-width:900px){
+  body{overflow:auto}
+  .app{flex-direction:column;height:auto;min-height:100%}
+  .panel{width:100%;flex:none;border-left:0;border-top:1px solid var(--line);max-height:55vh}
+  .bands{padding-bottom:24px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="main">
+    <header class="top">
+      <div class="brand">
+        <div>
+          <h1>TO ORDER <span>FINAL BUY BOARD · nothing charged</span></h1>
+          <div class="meta" id="meta-line">Ship-to 145 Kloof Road, Clifton · Africa/Johannesburg</div>
+        </div>
+      </div>
+      <div class="strip" id="strip"></div>
+      <div class="chips" id="urgency-chips"></div>
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="Search name, shop, category…">
+        <select id="f-cat"><option value="">All categories</option></select>
+        <select id="f-origin">
+          <option value="">Local + intl</option>
+          <option value="local">Local SA</option>
+          <option value="international">International</option>
+        </select>
+        <select id="f-status">
+          <option value="">All statuses</option>
+          <option value="parked">Parked</option>
+          <option value="draft-WA">Draft WA</option>
+          <option value="held">Held</option>
+          <option value="optional">Optional</option>
+          <option value="money-hold">Money-hold</option>
+        </select>
+        <label class="check"><input type="checkbox" id="hide-archive" checked> Hide archive</label>
+      </div>
+    </header>
+    <div class="bands" id="bands"></div>
+    <footer class="sacred" id="sacred"></footer>
+  </div>
+  <aside class="panel" id="panel" aria-label="Compare & why">
+    <div class="panel-h">
+      <h2 id="panel-title">Detail</h2>
+      <button type="button" id="panel-close" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-b" id="panel-b"></div>
+  </aside>
+</div>
+
+<script id="boot-data" type="application/json">
+{
+  "generated": "2026-09-24",
+  "updated_sast": "2026-09-24 21:45 SAST",
+  "title": "TO ORDER · FINAL BUY BOARD",
+  "ship_to": "Iwert Dijkema · 145 Kloof Road, Clifton, Cape Town 8005 · +31614286224 · iwert@dutchyard.com",
+  "ship_to_short": "145 Kloof Road, Clifton",
+  "fx_eur_zar": 19.2,
+  "parked_total_zar": 5330,
+  "parked_note": "PW R1,930 + NADSQ R3,400 = R5,330 · nothing charged until exact pay-yes",
+  "sacred_yes": [
+    {
+      "say": "pay PW R1930",
+      "does": "Charge Peptide Warehouse cart only (reconfirm live total first)"
+    },
+    {
+      "say": "pay NADSQ R3400",
+      "does": "Charge NADclinic one-time only (not the R2550 sub)"
+    },
+    {
+      "say": "pay both",
+      "does": "Both parked carts after live total confirm"
+    },
+    {
+      "say": "send Richard",
+      "does": "Patrona sends nasal+GHK+BAC WA (still not #40712)"
+    },
+    {
+      "say": "#40712 POP",
+      "does": "Separate transfer / POP to Richard for held invoice"
+    },
+    {
+      "say": "SS-31 Noventra / mobivIVe / PW vial / peptides vial / Healthspan / skip",
+      "does": "Then park that pick stop-at-pay"
+    },
+    {
+      "say": "override HGH",
+      "does": "Only if you explicitly lift Healix hold"
+    }
+  ],
+  "rules": [
+    "NEVER charge / Place Order / send WA without exact sacred-yes naming the live total",
+    "No fake Pay-for-me buttons",
+    "Do not mix #40712 with new nasal",
+    "Ship-to default Clifton"
+  ],
+  "sources": {
+    "prep": "/workspace/to-order/PREP-FOR-IWERT-2026-09-23.md",
+    "aug_overview": "/workspace/to-order/overview/",
+    "park_now": "/workspace/to-order/overview-now/",
+    "healthspan": "/workspace/to-order/healthspan-wa-fold-2026-09-24.md"
+  },
+  "items": [
+    {
+      "id": "pw-ta1-kpv",
+      "name": "Peptide Warehouse — TA-1 10mg + KPV 10mg",
+      "urgency": "urgent",
+      "priority": "P0",
+      "due_date": "2026-09-25",
+      "category": "Peptides",
+      "status": "parked",
+      "origin": "local",
+      "shop": "Peptide Warehouse",
+      "price": 1930,
+      "currency": "ZAR",
+      "price_note": "EFT selected · Payflex also",
+      "lines": "TA-1 10mg R1,250 + KPV 10mg R585 + ship R95 · NO GLOW · NO SS-31",
+      "delivery": "SA domestic · usually a few business days (confirm at checkout)",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": "https://peptide-warehouse.co.za/cart/",
+      "checkout_url": "https://peptide-warehouse.co.za/checkout/",
+      "pay_method": "EFT (preferred)",
+      "sacred_yes": "pay PW R1930",
+      "why": "KEEP park from voice call 22 Sep. Local SA research shop, EFT ready, Clifton ship filled. Cheapest clean TA-1+KPV combo without dragging GLOW/SS-31.",
+      "notes": "Rebuild cart if empty before pay. Place Order NO until exact yes.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "TA-1 10mg + KPV 10mg",
+          "shop": "Peptide Warehouse",
+          "price": 1930,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "advised",
+          "difference": "Parked live. EFT. No GLOW/SS-31. Ship R95 included.",
+          "url": "https://peptide-warehouse.co.za/checkout/"
+        },
+        {
+          "product": "TA-1 10mg (Jul quote)",
+          "shop": "Healthspan / Georgina",
+          "price": 950,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Jul list cheaper on TA-1 alone, but needs WA stock confirm + separate KPV (~R600 Jul). Not a live parked cart.",
+          "url": null
+        },
+        {
+          "product": "KPV 10mg",
+          "shop": "peptides.co.za",
+          "price": null,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "AJAX cart unreliable this cycle; nasal stack already on Richard WA. Don't split KPV here."
+        }
+      ]
+    },
+    {
+      "id": "nadsq-1000-onetime",
+      "name": "NADclinic — NADSQ 1000mg one-time",
+      "urgency": "urgent",
+      "priority": "P0",
+      "due_date": "2026-09-25",
+      "category": "NAD",
+      "status": "parked",
+      "origin": "local",
+      "shop": "NADclinic",
+      "price": 3400,
+      "currency": "ZAR",
+      "price_note": "Payfast card / Happy Pay — no separate EFT",
+      "lines": "NADSQ 1000mg ×1 ONE-TIME · NOT the R2,550 subscription",
+      "delivery": "Free domestic · dispatch ~2 business days",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": "https://nadclinic.co.za/cart/",
+      "checkout_url": "https://nadclinic.co.za/checkout/",
+      "pay_method": "Payfast / Happy Pay",
+      "sacred_yes": "pay NADSQ R3400",
+      "why": "Clinic NADSQ one-time matches KEEP. R2,550 is monthly sub — do not confuse.",
+      "notes": "Sticky park 22 Sep — rebuild if empty. Place Order NO.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "NADSQ 1000mg one-time",
+          "shop": "NADclinic",
+          "price": 3400,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "advised",
+          "difference": "Parked. Free ship. One-time only.",
+          "url": "https://nadclinic.co.za/checkout/"
+        },
+        {
+          "product": "NADSQ monthly sub",
+          "shop": "NADclinic",
+          "price": 2550,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "Looks cheaper but locks subscription. Explicitly NOT selected."
+        },
+        {
+          "product": "NAD pen disposable 450mg",
+          "shop": "Healthspan",
+          "price": 1550,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Cheaper clinic pen (Georgina 1 Sep) but different SKU/dose vs parked 1000mg NADSQ. Confirm stock before swapping.",
+          "url": null
+        },
+        {
+          "product": "NAD reusable + 4×300mg",
+          "shop": "Healthspan",
+          "price": 2650,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Then refill 4×300mg R1,500. Clinic path — not the parked cart."
+        },
+        {
+          "product": "Dr Iqbal NAD pens 1000mg",
+          "shop": "Iqbal",
+          "price": 3900,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "Dearer than parked NADSQ; different source (11–12 Sep)."
+        }
+      ]
+    },
+    {
+      "id": "richard-nasal-bpc-ghk-bac",
+      "name": "Richard nasal — BPC+TB 10/10 + GHK 100mg + BAC",
+      "urgency": "urgent",
+      "priority": "P0",
+      "due_date": "2026-09-25",
+      "category": "Peptides",
+      "status": "draft-WA",
+      "origin": "local",
+      "shop": "peptides.co.za (via Richard WA)",
+      "price": 3500,
+      "currency": "ZAR",
+      "price_note": "~R2,940 excl + VAT + courier TBD ≈ R3.5k+",
+      "lines": "BPC157/TB-500 nasal 10/10 + GHK-cu++ nasal 100mg + 10ml peptide water · CLEAN NEW order — NOT #40712",
+      "delivery": "SA courier to Clifton after EFT quote",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": null,
+      "product_urls": [
+        "https://peptides.co.za/product/bpc157-10mg-tb-500-10mg-nasal-spray",
+        "https://peptides.co.za/product/ghk-cu-nasal-spray",
+        "https://peptides.co.za/product/10ml-peptide-water"
+      ],
+      "pay_method": "EFT after Richard quote",
+      "sacred_yes": "send Richard",
+      "why": "peptides.co.za add-to-cart AJAX broken in box Chrome — WA draft is the reliable path. Patrona only.",
+      "notes": "Draft stop-at-send. Do NOT mix with invoice #40712.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "BPC+TB 10/10 nasal + GHK + BAC",
+          "shop": "peptides.co.za via Richard",
+          "price": 3500,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "advised",
+          "difference": "Draft ready. Fresh standalone order. Quote incl VAT+courier."
+        },
+        {
+          "product": "BPC+TB 5/5 nasal cheaper alt",
+          "shop": "peptides.co.za",
+          "price": 1250,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "~R1,250 excl if you prefer smaller nasal — say so before send."
+        },
+        {
+          "product": "Web cart DIY",
+          "shop": "peptides.co.za",
+          "price": null,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "AJAX blocked this cycle — unreliable to park."
+        },
+        {
+          "product": "Invoice #40712 add-on",
+          "shop": "peptides.co.za",
+          "price": 15435.88,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "Separate money-hold. Never mix new nasal into #40712."
+        }
+      ]
+    },
+    {
+      "id": "ss31-held",
+      "name": "SS-31 (Elamipretide) — pick form (Reschem pen OOS)",
+      "urgency": "urgent",
+      "priority": "P0",
+      "due_date": "2026-09-26",
+      "category": "Peptides",
+      "status": "held",
+      "origin": "local",
+      "shop": "TBD — your pick",
+      "price": 2200,
+      "currency": "ZAR",
+      "price_note": "Range ~R1,150–R3,699 depending on form",
+      "lines": "Reschem pen sold out · KEEP preferred pen · pen ≠ vial",
+      "delivery": "Depends on pick · all SA options ship domestic / clinic",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "After pick + park",
+      "sacred_yes": "SS-31 Noventra / mobivIVe / PW vial / peptides vial / Healthspan / skip",
+      "why": "Gap after Reschem OOS. Healix KEEP wanted pen; research shops only had vials when checked. You pick words then we park stop-at-pay.",
+      "notes": "Nothing parked yet. Do not silent-sub pen→vial.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "SS-31 100mg/2mL multi-dose pen (200 clicks)",
+          "shop": "Noventra",
+          "price": 2200,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Pen form · ~R2,200 (R1,850 ea at 3+) · research web.",
+          "url": "https://noventrapharma.com/product/noventra-pharma-ss-31-elamipretide-100mg-2ml-multi-dose-pen-200-clicks-mitochondrial-support-endurance-best-price-sa/"
+        },
+        {
+          "product": "SS-31 40mg prefilled pen",
+          "shop": "mobivIVe",
+          "price": 3699,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Clinic / questionnaire + script path · dearer.",
+          "url": "https://mobivive.co.za/mots-c-ss-31-south-africa/"
+        },
+        {
+          "product": "SS-31 10mg / 50mg vial",
+          "shop": "Peptide Warehouse",
+          "price": 1150,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Cheapest vial (10mg R1,150 / 50mg R1,885). Not a pen.",
+          "url": "https://peptide-warehouse.co.za/product/ss-31/"
+        },
+        {
+          "product": "SS31 Elamipretide 10mg SubQ",
+          "shop": "peptides.co.za",
+          "price": 2000,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "R2,000 excl · EFT+card · in stock. Vial.",
+          "url": "https://peptides.co.za/product/ss31-elamipretide"
+        },
+        {
+          "product": "SS-31 50mg vial",
+          "shop": "Healthspan / Georgina",
+          "price": 2250,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Jul clinic quote — confirm stock before Gina draft. WA via Patrona.",
+          "url": null
+        },
+        {
+          "product": "SS-31 Reschem pen",
+          "shop": "Reschem",
+          "price": null,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "SOLD OUT — was prior park."
+        },
+        {
+          "product": "skip this cycle",
+          "shop": "—",
+          "price": 0,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "Leave GAP — say SS-31 skip."
+        }
+      ]
+    },
+    {
+      "id": "peptides-40712-pop",
+      "name": "peptides.co.za #40712 — POP on hold",
+      "urgency": "urgent",
+      "priority": "P0",
+      "due_date": null,
+      "category": "Peptides",
+      "status": "money-hold",
+      "origin": "local",
+      "shop": "peptides.co.za / Richard",
+      "price": 15435.88,
+      "currency": "ZAR",
+      "price_note": "Separate money decision — do not mix with nasal",
+      "lines": "ON-HOLD until POP to Richard WA 060 997 4604",
+      "delivery": "Already invoiced lane — not a new cart",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "EFT + POP",
+      "bank": "Nedbank The Glen · Research Peptides South Africa Pty Ltd · 1185760466 · branch 198765",
+      "sacred_yes": "#40712 POP",
+      "why": "Held invoice awaiting your transfer/POP. Completely separate from new nasal WA draft.",
+      "notes": "Never add nasal/GHK/BAC onto this invoice.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "#40712 held invoice",
+          "shop": "peptides.co.za",
+          "price": 15435.88,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "advised",
+          "difference": "Pay only if you clear this money decision. Bank details on card."
+        },
+        {
+          "product": "New nasal order",
+          "shop": "Richard WA",
+          "price": 3500,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "Different lane — use send Richard, not this POP."
+        }
+      ]
+    },
+    {
+      "id": "o2ring-redmark",
+      "name": "Wellue O2Ring-S — Redmark",
+      "urgency": "high",
+      "priority": "P1",
+      "due_date": null,
+      "category": "Tech",
+      "status": "optional",
+      "origin": "local",
+      "shop": "Redmark",
+      "price": 4490,
+      "currency": "ZAR",
+      "price_note": "Free ship (order > R2,000) · guest carts often expire",
+      "lines": "Wellue O2 Ring-S oximeter · was R4,890",
+      "delivery": "Dispatch within 24h (site banner when last parked)",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": "https://www.redmark.co.za/checkout/",
+      "product_url": "https://www.redmark.co.za/product/o2-ring-oximeter/",
+      "pay_method": "Re-verify before pay-yes",
+      "sacred_yes": null,
+      "why": "Prior park for overnight SpO2. Local SA, free ship. Re-verify/rebuild before pay — not re-opened 22–24 Sep.",
+      "notes": "P1 optional. Rebuild if checkout empty.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "Wellue O2Ring-S",
+          "shop": "Redmark",
+          "price": 4490,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "advised",
+          "difference": "Last known checkout. Free ship. Local.",
+          "url": "https://www.redmark.co.za/checkout/"
+        },
+        {
+          "product": "Other SpO2 rings",
+          "shop": "various",
+          "price": null,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "No fresh comparison this cycle — stick to Redmark if still wanting O2Ring."
+        }
+      ]
+    },
+    {
+      "id": "fasoracetam-yottaboost",
+      "name": "Fasoracetam 20mg×60 — Yottaboost",
+      "urgency": "high",
+      "priority": "P1",
+      "due_date": null,
+      "category": "Supplements",
+      "status": "optional",
+      "origin": "international",
+      "shop": "Yottaboost",
+      "price": 86.45,
+      "currency": "EUR",
+      "price_note": "€79.95 + €6.50 tracked ship · INT'L FLAG",
+      "lines": "60 caps = ~30 days at 40 mg/day · Reschem SA OOS/insufficient",
+      "delivery": "EU standard tracked · ETA not guaranteed · customs risk",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": "https://www.yottaboost.com/index.php?route=checkout/cart",
+      "checkout_url": "https://www.yottaboost.com/index.php?route=checkout/checkout",
+      "pay_method": "Re-verify before pay",
+      "sacred_yes": null,
+      "why": "Reschem capsules insufficient for 30-day restock; powder OOS. Yottaboost is substitute — non-SA flag / expiry risk.",
+      "notes": "Optional P1. International.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "Fasoracetam 20mg×60",
+          "shop": "Yottaboost",
+          "price": 86.45,
+          "currency": "EUR",
+          "origin": "international",
+          "verdict": "advised",
+          "difference": "Only parked restock path when Reschem failed. INT'L.",
+          "url": "https://www.yottaboost.com/index.php?route=checkout/checkout"
+        },
+        {
+          "product": "Fasoracetam capsules 30×10mg",
+          "shop": "Reschem",
+          "price": 269,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "Cart enforced 1 pack only (=7.5 days at 40mg/day). Powder OOS."
+        }
+      ]
+    },
+    {
+      "id": "scapegear-curve",
+      "name": "ScapeGear Curve Commander 3.0",
+      "urgency": "medium",
+      "priority": "P2",
+      "due_date": null,
+      "category": "Other",
+      "status": "optional",
+      "origin": "local",
+      "shop": "ScapeGear",
+      "price": 1899,
+      "currency": "ZAR",
+      "price_note": "Prior park ~R1,899 — rebuild only if still wanted",
+      "lines": "Soft P2",
+      "delivery": "SA domestic",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": "https://www.scapegear.co.za/cart",
+      "checkout_url": null,
+      "pay_method": "Rebuild if yes",
+      "sacred_yes": null,
+      "why": "Prior soft want. Not on peptide KEEP lane.",
+      "notes": "Optional. Don't block P0.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "Curve Commander 3.0",
+          "shop": "ScapeGear",
+          "price": 1899,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Last known cart. Rebuild if still wanted.",
+          "url": "https://www.scapegear.co.za/cart"
+        }
+      ]
+    },
+    {
+      "id": "d-ribose-yourwellbeing",
+      "name": "D-Ribose — Your Wellbeing",
+      "urgency": "medium",
+      "priority": "P2",
+      "due_date": null,
+      "category": "Supplements",
+      "status": "optional",
+      "origin": "local",
+      "shop": "Your Wellbeing",
+      "price": 1801.64,
+      "currency": "ZAR",
+      "price_note": "Dearer vs Idexis historically",
+      "lines": "Optional restock",
+      "delivery": "SA domestic",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "Rebuild if yes",
+      "sacred_yes": null,
+      "why": "Prior park; price soft vs historic Idexis. Optional only.",
+      "notes": "iHerb NOW 8oz also existed but captcha-blocked.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "D-Ribose",
+          "shop": "Your Wellbeing",
+          "price": 1801.64,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Prior park — dearer vs Idexis historically."
+        },
+        {
+          "product": "NOW Foods D-Ribose 8 oz",
+          "shop": "iHerb ZA",
+          "price": 40.62,
+          "currency": "USD",
+          "origin": "international",
+          "verdict": "skip",
+          "difference": "Checkout CAPTCHA blocked rebuilds."
+        }
+      ]
+    },
+    {
+      "id": "temple-natto",
+      "name": "Temple Natto Neat (nattokinase)",
+      "urgency": "medium",
+      "priority": "P2",
+      "due_date": null,
+      "category": "Supplements",
+      "status": "held",
+      "origin": "local",
+      "shop": "Temple Foods",
+      "price": 353,
+      "currency": "ZAR",
+      "price_note": "Login wall",
+      "lines": "~R353 prior · needs your shop sign-in",
+      "delivery": "SA domestic",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": "https://www.templefoods.co.za/account/login?from=/checkout",
+      "pay_method": "Login required",
+      "sacred_yes": null,
+      "why": "Login wall — cannot park without your session.",
+      "notes": "Takealot alt existed historically (~R210) — verify if still wanted.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "Natto Neat 120",
+          "shop": "Temple Foods",
+          "price": 353,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "blocked",
+          "difference": "Login required.",
+          "url": "https://www.templefoods.co.za/account/login?from=/checkout"
+        },
+        {
+          "product": "Nattokinase",
+          "shop": "Takealot",
+          "price": 210,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Cheaper historic alt — re-check stock if Temple blocked."
+        }
+      ]
+    },
+    {
+      "id": "hgh-off",
+      "name": "HGH (Jintropin / research) — OFF pay pile",
+      "urgency": "low",
+      "priority": "HOLD",
+      "due_date": null,
+      "category": "Peptides",
+      "status": "held",
+      "origin": "local",
+      "shop": "Healix hold",
+      "price": null,
+      "currency": "ZAR",
+      "price_note": "OFF unless override after cardiology OK",
+      "lines": "Healix: stop-at-pay unless explicit override",
+      "delivery": "—",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "Blocked",
+      "sacred_yes": "override HGH",
+      "why": "Healix rule — not on pay pile this cycle.",
+      "notes": "Research URLs are market notes only — do not park.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "HGH any research shop",
+          "shop": "various",
+          "price": null,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "OFF. Override only after written cardiology OK."
+        }
+      ]
+    },
+    {
+      "id": "exo-msc-off",
+      "name": "DIY exosome / MSC vials — HARD NO",
+      "urgency": "low",
+      "priority": "HOLD",
+      "due_date": null,
+      "category": "Peptides",
+      "status": "held",
+      "origin": "local",
+      "shop": "Healix",
+      "price": null,
+      "currency": "ZAR",
+      "price_note": "Clinic consult path only later",
+      "lines": "HARD NO on DIY vials",
+      "delivery": "—",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "Blocked",
+      "sacred_yes": null,
+      "why": "Healix hard no — clinic path only later.",
+      "notes": "Do not park.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "DIY exo/MSC",
+          "shop": "any",
+          "price": null,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "HARD NO."
+        }
+      ]
+    },
+    {
+      "id": "healthspan-ss31-watch",
+      "name": "Healthspan SS-31 50mg (clinic watch)",
+      "urgency": "medium",
+      "priority": "P1",
+      "due_date": null,
+      "category": "Peptides",
+      "status": "held",
+      "origin": "local",
+      "shop": "Healthspan / Georgina",
+      "price": 2250,
+      "currency": "ZAR",
+      "price_note": "Jul quote — confirm stock",
+      "lines": "Folded from Georgina WA harvest 24 Sep · option E on SS-31 pick",
+      "delivery": "Cold-chain ice packs · same-day collection if in stock",
+      "delivery_to": "Bantry Bay / Clifton via clinic process",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "EFT or card · invoice nina.dos@dutchyard.com",
+      "sacred_yes": "SS-31 Healthspan",
+      "why": "Strong clinic vial alt while Reschem pen OOS. Not a web cart — WA via Patrona after stock confirm.",
+      "notes": "See healthspan-wa-fold-2026-09-24.md. Also listed under SS-31 compare.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "SS-31 50mg vial",
+          "shop": "Healthspan",
+          "price": 2250,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Jul Nina Tier 2. Confirm stock before Gina draft."
+        },
+        {
+          "product": "PW / Noventra / mobivIVe",
+          "shop": "see SS-31 card",
+          "price": null,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Cross-listed — pick on main SS-31 row."
+        }
+      ]
+    },
+    {
+      "id": "archive-normatec",
+      "name": "[ARCHIVE] Hyperice Normatec 3.0 Legs",
+      "urgency": "low",
+      "priority": "HOLD",
+      "due_date": null,
+      "category": "Recovery",
+      "status": "held",
+      "origin": "local",
+      "shop": "iStore",
+      "price": 18299,
+      "currency": "ZAR",
+      "price_note": "Hold until Bio Compression arrives",
+      "lines": "Aug overview · not peptide NOW lane",
+      "delivery": "iStore SA",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": "https://www.istore.co.za/hyperice-normatec-3-0-leg-system-pvn-63010-001-03",
+      "pay_method": "Hold",
+      "sacred_yes": null,
+      "why": "Legacy hold from Sep total overview. Kept as archive context only.",
+      "notes": "Archive — filter off for clean NOW.",
+      "band": "archive",
+      "compared": []
+    },
+    {
+      "id": "archive-rainpoint",
+      "name": "[ARCHIVE] RainPoint CO2 meter + Wi-Fi Hub",
+      "urgency": "low",
+      "priority": "P2",
+      "due_date": null,
+      "category": "Air monitors",
+      "status": "optional",
+      "origin": "local",
+      "shop": "Takealot",
+      "price": 1540,
+      "currency": "ZAR",
+      "price_note": "Aug in_cart — may be stale",
+      "lines": "Aug overview ORDER TODAY lane — verify before acting",
+      "delivery": "Takealot CPT next-day when stocked",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": "https://www.takealot.com/rainpoint-smart-air-quality-meter-co2-detector-wi-fi-hub/PLID96933571",
+      "pay_method": "Login needed",
+      "sacred_yes": null,
+      "why": "Kept from Aug compared structure as archive example — not current peptide park.",
+      "notes": "Archive.",
+      "band": "archive",
+      "compared": [
+        {
+          "product": "RainPoint CO2 + hub",
+          "shop": "Takealot",
+          "price": 1540,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Aug live cart price — re-verify."
+        }
+      ]
+    },
+    {
+      "id": "archive-hetzner",
+      "name": "[ARCHIVE] Hetzner AX42 chrome farm",
+      "urgency": "low",
+      "priority": "P2",
+      "due_date": null,
+      "category": "Tech",
+      "status": "held",
+      "origin": "international",
+      "shop": "Hetzner",
+      "price": 176.12,
+      "currency": "EUR",
+      "price_note": "Login → robot order",
+      "lines": "Infra — not peptide",
+      "delivery": "EU dedicated",
+      "delivery_to": "N/A (server)",
+      "cart_url": null,
+      "checkout_url": "https://accounts.hetzner.com/login",
+      "pay_method": "Login",
+      "sacred_yes": null,
+      "why": "Archive from Sep overview. Separate from BUY peptides board.",
+      "notes": "Archive.",
+      "band": "archive",
+      "compared": []
+    },
+    {
+      "id": "healthspan-nad-pen-watch",
+      "name": "Healthspan NAD pen / vial alts (watch vs NADSQ)",
+      "urgency": "medium",
+      "priority": "P1",
+      "due_date": null,
+      "category": "NAD",
+      "status": "optional",
+      "origin": "local",
+      "shop": "Healthspan / Georgina",
+      "price": 1550,
+      "currency": "ZAR",
+      "price_note": "Disposable 450mg R1,550 · reusable+4×300mg R2,650 — confirm stock",
+      "lines": "Clinic alts folded 24 Sep · not swapping parked NADSQ unless you say so",
+      "delivery": "Clinic process · ice packs",
+      "delivery_to": "Clifton / Bantry Bay via Healthspan",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "WA via Patrona after stock confirm",
+      "sacred_yes": null,
+      "why": "Cheaper clinic pens than parked NADSQ R3400, but different SKU/dose. Keep as compare — do not auto-replace parked cart.",
+      "notes": "From healthspan-wa-fold-2026-09-24.md",
+      "band": "now",
+      "compared": [
+        {
+          "product": "NADSQ 1000mg one-time parked",
+          "shop": "NADclinic",
+          "price": 3400,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "advised",
+          "difference": "Current KEEP park."
+        },
+        {
+          "product": "NAD pen disposable 450mg",
+          "shop": "Healthspan",
+          "price": 1550,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Georgina 1 Sep quote."
+        },
+        {
+          "product": "NAD reusable + 4×300mg",
+          "shop": "Healthspan",
+          "price": 2650,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "runner",
+          "difference": "Then refill 4×300mg R1,500."
+        }
+      ]
+    },
+    {
+      "id": "selank-healthspan-parked-cycle",
+      "name": "Selank 10mg — Healthspan (Healix parked this cycle)",
+      "urgency": "low",
+      "priority": "HOLD",
+      "due_date": null,
+      "category": "Peptides",
+      "status": "held",
+      "origin": "local",
+      "shop": "Healthspan",
+      "price": 600,
+      "currency": "ZAR",
+      "price_note": "Jul list · 6 in stock 22 Jul — do not auto-add",
+      "lines": "Healix parked this cycle",
+      "delivery": "Clinic",
+      "delivery_to": "Clifton via Healthspan",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "Held",
+      "sacred_yes": null,
+      "why": "On Healthspan fold but Healix parked — leave off pay pile unless override.",
+      "notes": "Archive-adjacent hold on NOW board.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "Selank 10mg",
+          "shop": "Healthspan",
+          "price": 600,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "Healix parked this cycle."
+        }
+      ]
+    },
+    {
+      "id": "glow-healthspan-parked-cycle",
+      "name": "GLOW 70mg — Healthspan (Healix parked)",
+      "urgency": "low",
+      "priority": "HOLD",
+      "due_date": null,
+      "category": "Peptides",
+      "status": "held",
+      "origin": "local",
+      "shop": "Healthspan",
+      "price": 1500,
+      "currency": "ZAR",
+      "price_note": "Jul list · intentionally not in PW cart",
+      "lines": "PW park explicitly NO GLOW",
+      "delivery": "Clinic",
+      "delivery_to": "Clifton via Healthspan",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "Held",
+      "sacred_yes": null,
+      "why": "Healix parked GLOW; PW cart kept clean without it.",
+      "notes": "Held.",
+      "band": "now",
+      "compared": [
+        {
+          "product": "GLOW 70mg",
+          "shop": "Healthspan",
+          "price": 1500,
+          "currency": "ZAR",
+          "origin": "local",
+          "verdict": "skip",
+          "difference": "Parked this cycle — do not add to PW."
+        }
+      ]
+    },
+    {
+      "id": "h2-spe-deferred",
+      "name": "H2 SPE station / FtN / Takealot / Dis-Chem — deferred",
+      "urgency": "low",
+      "priority": "HOLD",
+      "due_date": null,
+      "category": "H2 water",
+      "status": "held",
+      "origin": "local",
+      "shop": "various",
+      "price": null,
+      "currency": "ZAR",
+      "price_note": "Login or deferred — not peptide lane tonight",
+      "lines": "From PREP §2 HOLD block",
+      "delivery": "SA",
+      "delivery_to": "145 Kloof Road, Clifton",
+      "cart_url": null,
+      "checkout_url": null,
+      "pay_method": "Deferred",
+      "sacred_yes": null,
+      "why": "Not on current peptide KEEP pay pile. Listed so it is not forgotten.",
+      "notes": "Held / deferred.",
+      "band": "now",
+      "compared": []
+    }
+  ]
+}
+</script>
+<script>
+(function(){
+  const DATA = JSON.parse(document.getElementById('boot-data').textContent);
+  const items = DATA.items || [];
+  const state = { urgency: null, cat: '', origin: '', status: '', q: '', hideArchive: true, sel: null };
+
+  const money = (n, cur) => {
+    if (n == null || n === '') return '—';
+    const c = cur || 'ZAR';
+    if (c === 'ZAR') return 'R' + Number(n).toLocaleString('en-ZA', {maximumFractionDigits: 2});
+    if (c === 'EUR') return '€' + Number(n).toLocaleString('en-IE', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    if (c === 'USD') return '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    return c + ' ' + n;
+  };
+
+  function filtered() {
+    return items.filter(it => {
+      if (state.hideArchive && it.band === 'archive') return false;
+      if (state.urgency && it.urgency !== state.urgency) return false;
+      if (state.cat && it.category !== state.cat) return false;
+      if (state.origin && it.origin !== state.origin) return false;
+      if (state.status && it.status !== state.status) return false;
+      if (state.q) {
+        const hay = [it.name, it.shop, it.category, it.lines, it.why, it.notes, it.sacred_yes].join(' ').toLowerCase();
+        if (!hay.includes(state.q.toLowerCase())) return false;
+      }
+      return true;
+    });
+  }
+
+  function counts() {
+    const base = items.filter(it => !(state.hideArchive && it.band === 'archive'));
+    const u = {urgent:0,high:0,medium:0,low:0};
+    const s = {};
+    base.forEach(it => { u[it.urgency] = (u[it.urgency]||0)+1; s[it.status]=(s[it.status]||0)+1; });
+    return {u,s,n:base.length};
+  }
+
+  function renderStrip() {
+    const parkedZar = DATA.parked_total_zar || 0;
+    const el = document.getElementById('strip');
+    el.innerHTML = `
+      <div class="pill park"><div class="lbl">Parked checkout (ZAR)</div><div class="val">${money(parkedZar,'ZAR')}</div></div>
+      <div class="pill"><div class="lbl">Ship-to</div><div class="val" style="font-size:13px;font-weight:600;margin-top:6px">${DATA.ship_to_short||'Clifton'}</div></div>
+      <div class="pill warn"><div class="lbl">Charge rule</div><div class="val">Nothing charged until exact pay-yes naming the live total. No Place Order. No auto-pay.</div></div>
+    `;
+    document.getElementById('meta-line').textContent =
+      (DATA.ship_to || '145 Kloof Road, Clifton') + ' · updated ' + (DATA.updated_sast || DATA.generated) +
+      ' · ' + counts().n + ' active rows';
+  }
+
+  function renderChips() {
+    const {u} = counts();
+    const order = ['urgent','high','medium','low'];
+    const box = document.getElementById('urgency-chips');
+    box.innerHTML = order.map(k => {
+      const on = state.urgency === k ? ' on' : '';
+      return `<button type="button" class="chip ${k}${on}" data-u="${k}">${k.toUpperCase()}<b>${u[k]||0}</b></button>`;
+    }).join('') + `<button type="button" class="chip${state.urgency===null?' on':''}" data-u="">ALL<b>${counts().n}</b></button>`;
+    box.querySelectorAll('.chip').forEach(btn => {
+      btn.onclick = () => {
+        const v = btn.getAttribute('data-u');
+        state.urgency = v === '' ? null : v;
+        paint();
+      };
+    });
+  }
+
+  function fillFilters() {
+    const cats = [...new Set(items.map(i => i.category).filter(Boolean))].sort();
+    const sel = document.getElementById('f-cat');
+    const cur = state.cat;
+    sel.innerHTML = '<option value="">All categories</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+    sel.value = cur;
+  }
+
+  function renderSacred() {
+    const rows = (DATA.sacred_yes || []).map(s => `<code title="${s.does}">${s.say}</code>`).join('');
+    document.getElementById('sacred').innerHTML = `<h3>Sacred yes · say the words</h3><div class="sacred-row">${rows}</div>`;
+  }
+
+  function cardHtml(it) {
+    const price = money(it.price, it.currency);
+    const badges = [
+      `<span class="badge b-${it.urgency}">${it.priority || it.urgency}</span>`,
+      `<span class="badge b-${it.status}">${it.status}</span>`,
+      `<span class="badge b-${it.origin}">${it.origin === 'local' ? 'LOCAL SA' : 'INTL'}</span>`,
+      `<span class="badge b-cat">${it.category}</span>`,
+    ].join('');
+    const links = [];
+    if (it.checkout_url) links.push(`<a class="btn checkout" href="${it.checkout_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Checkout</a>`);
+    if (it.cart_url) links.push(`<a class="btn cart" href="${it.cart_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Cart</a>`);
+    if (it.product_url) links.push(`<a class="btn" href="${it.product_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Product</a>`);
+    (it.product_urls||[]).slice(0,3).forEach((u,i) => links.push(`<a class="btn" href="${u}" target="_blank" rel="noopener" onclick="event.stopPropagation()">SKU ${i+1}</a>`));
+    links.push(`<button type="button" class="btn compare" data-compare="${it.id}" onclick="event.stopPropagation()">Compare</button>`);
+
+    return `<article class="card ${it.urgency}${state.sel===it.id?' sel':''}" data-id="${it.id}">
+      <div class="rail"></div>
+      <div class="card-top"><div class="card-name">${esc(it.name)}</div><div class="badges">${badges}</div></div>
+      <div class="card-mid"><div class="price">${price}</div><div class="price-note">${esc(it.price_note||'')}</div></div>
+      <div class="kv">
+        <span>Shop</span><span>${esc(it.shop||'—')}</span>
+        <span>Delivery</span><span>${esc(it.delivery||'—')}</span>
+        <span>Lines</span><span>${esc(it.lines||'—')}</span>
+        ${it.sacred_yes ? `<span>Say</span><span><code style="color:var(--parked)">${esc(it.sacred_yes)}</code></span>` : ''}
+        ${it.due_date ? `<span>Due</span><span>${esc(it.due_date)}</span>` : ''}
+      </div>
+      <div class="actions">${links.join('')}</div>
+    </article>`;
+  }
+
+  function esc(s){ return String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function renderBands() {
+    const list = filtered();
+    const order = ['urgent','high','medium','low'];
+    const box = document.getElementById('bands');
+    if (!list.length) { box.innerHTML = '<div class="empty">No rows match filters.</div>'; return; }
+    box.innerHTML = order.map(u => {
+      const rows = list.filter(i => i.urgency === u);
+      if (!rows.length) return '';
+      return `<section class="band ${u}"><div class="band-h">${u} <span class="n">${rows.length}</span></div>${rows.map(cardHtml).join('')}</section>`;
+    }).join('');
+
+    box.querySelectorAll('.card').forEach(el => {
+      el.onclick = () => openPanel(el.getAttribute('data-id'));
+    });
+    box.querySelectorAll('[data-compare]').forEach(btn => {
+      btn.onclick = (e) => { e.stopPropagation(); openPanel(btn.getAttribute('data-compare')); };
+    });
+  }
+
+  function openPanel(id) {
+    const it = items.find(x => x.id === id);
+    if (!it) return;
+    state.sel = id;
+    const panel = document.getElementById('panel');
+    panel.classList.add('open');
+    document.getElementById('panel-title').textContent = it.name;
+    const cmp = (it.compared||[]).map(c => {
+      const v = c.verdict || 'runner';
+      const link = c.url ? ` · <a href="${c.url}" target="_blank" rel="noopener">open</a>` : '';
+      return `<div class="cmp"><div class="t">${esc(c.product||'')} <span class="verdict v-${v}">${v}</span></div>
+        <div class="m">${esc(c.shop||'')} · ${money(c.price,c.currency)} · ${c.origin==='international'?'INTL':'LOCAL'}${link}</div>
+        <div style="margin-top:6px">${esc(c.difference||'')}</div></div>`;
+    }).join('') || '<div class="m">No comparison rows on file.</div>';
+
+    document.getElementById('panel-b').innerHTML = `
+      <div class="sec"><h4>Why this pick</h4><p>${esc(it.why||'—')}</p>
+        ${it.notes ? `<p style="color:var(--muted)">${esc(it.notes)}</p>` : ''}</div>
+      <div class="sec"><h4>Delivery to Clifton</h4>
+        <p>${esc(it.delivery||'—')}<br><span style="color:var(--muted)">${esc(it.delivery_to||DATA.ship_to_short||'')}</span></p></div>
+      <div class="sec"><h4>Pay / status</h4>
+        <p>Status: <b>${esc(it.status)}</b> · ${esc(it.pay_method||'')}<br>
+        ${it.bank ? `Bank: ${esc(it.bank)}<br>` : ''}
+        ${it.sacred_yes ? `Sacred yes: <code style="color:var(--parked)">${esc(it.sacred_yes)}</code>` : 'No pay words until parked + confirmed.'}</p></div>
+      <div class="sec"><h4>Compared (why vs alts)</h4>${cmp}</div>
+      <div class="sec"><h4>Links</h4>
+        <p>${it.checkout_url?`<a href="${it.checkout_url}" target="_blank" rel="noopener">Checkout</a> · `:''}
+           ${it.cart_url?`<a href="${it.cart_url}" target="_blank" rel="noopener">Cart</a> · `:''}
+           ${(it.product_urls||[]).map((u,i)=>`<a href="${u}" target="_blank" rel="noopener">SKU ${i+1}</a>`).join(' · ')|| (it.product_url?`<a href="${it.product_url}" target="_blank" rel="noopener">Product</a>`:'—')}
+        </p>
+        <p style="color:var(--faint);font-size:11px;margin-top:12px">Checkout links open the shop — this board never charges.</p>
+      </div>`;
+    renderBands();
+  }
+
+  function paint() {
+    renderStrip();
+    renderChips();
+    renderBands();
+  }
+
+  document.getElementById('panel-close').onclick = () => {
+    state.sel = null;
+    document.getElementById('panel').classList.remove('open');
+    renderBands();
+  };
+  document.getElementById('q').oninput = (e) => { state.q = e.target.value; paint(); };
+  document.getElementById('f-cat').onchange = (e) => { state.cat = e.target.value; paint(); };
+  document.getElementById('f-origin').onchange = (e) => { state.origin = e.target.value; paint(); };
+  document.getElementById('f-status').onchange = (e) => { state.status = e.target.value; paint(); };
+  document.getElementById('hide-archive').onchange = (e) => { state.hideArchive = e.target.checked; paint(); };
+
+  fillFilters();
+  renderSacred();
+  paint();
+})();
+</script>
+</body>
+</html>
